@@ -73,7 +73,7 @@ def posting(request):
     else:
         form = PostFrom()
 
-    return render(request,'newpost.html')
+    return render(request,'newpost.html',{'form':form})
 
     
 def post_detail(request,slug):
@@ -139,5 +139,3 @@ def UpdateProfile(request,pk):
     } 
     return render(request, 'updateprofile.html', context)
 
-def EditProfile(request):
-    pass

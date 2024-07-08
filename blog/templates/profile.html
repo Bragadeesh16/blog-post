@@ -1,25 +1,31 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 
-<h1>user profile</h1>
+{% block stylesheet%}
+<link rel="stylesheet" href="{% static 'profile.css' %}">
+ {% endblock %}
 
-{{ users.username }} <br>
+<h5 style="padding: 3px;">Profile:</h5>
+<h6>Username : {{ users.username }}</h6>
+<h6>Bio : {{ user_profile_details.bio }}</h6>
 
 {% if users.id == request.user.id%}
-
-<br><button><a href="{% url 'update-profile' users.id %}">updateprofile</a> </button>
-
+<button class="update-profile"><a href="{% url 'update-profile' users.id %}"> Update Profile</a> </button> <br>
 {% endif %}
 
 
-<h1>posts:</h1>
+<h5>posts:</h5>
 
-{% for posts in posts %}
-    <a href = "{% url 'post' posts.slug %}">
-        <h1> title : {{ posts.Title }}</h1>
-        <p> content : {{ posts.Content }}</p> <br>
-    </a>
+{% for post in posts %}
+    <div class="posts-container"> 
+        <div class="post">
+            <a href="{% url 'post' post.slug %}">
+                <h5>Title: {{ post.Title }}</h5>
+                <p>Content: {{ post.Content }}</p>
+            </a>
+        </div>
+    </div>
 {% endfor %}
 
 {% endblock %}

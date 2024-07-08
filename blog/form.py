@@ -19,16 +19,22 @@ class PostFrom(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['Title','Content']
+        widgets = {
+            'content': forms.Textarea(attrs={'class': 'custom-textarea'}),}
 
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['Content']
+        widgets = {
+            'content': forms.Textarea(attrs={'class': 'custom-textarea'}),}
 
 class ProfileModelForm(forms.ModelForm):
     class Meta:
         model = ProfileModel
         fields = ['bio']
+        widgets = {
+            'content': forms.Textarea(attrs={'class': 'custom-textarea'}),}
 
 class CustomUserForm(forms.ModelForm):
     class Meta:

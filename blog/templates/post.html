@@ -1,25 +1,52 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 
-<h1> detailed posts</h1>
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'post.css' %}">
+{% endblock %}
 
-<h1>Title : {{posts.Title}}</h1>
-<a href="{% url 'profile' posts.Author.id %}"> author : {{ posts.Author }}</a>
-<p> content: {{ posts.Content }}</p>
+<h5 style="padding: 8px;"> Detailed Posts :</h5>
 
-<form action="{% url 'post' posts.slug %}" method="post">
-    {% csrf_token %}
-    {{ form }}
-    <button type="submit">send</button>
-</form>
+<div class="posts-container"> 
+    <div class="post">
+        <h5>Title: {{ posts.Title }}</h5>
+        <h5 style="font-size: larger;"><a href="{% url 'profile' posts.Author.id %}"> author : {{ posts.Author.username }}</a></h5>
+        <p>Content: {{ posts.Content }}</p>
+    </div>
 
-<h1>comments:</h1>
+    <h5>comments:</h5>
 
-{% for comment in comment %}
+    <button id="add-comment-button">add comments</button>
 
-    {{ comment.Content }} <br>
+    <div id="comment-form-container" style="display: none;">
+        <form action="{% url 'post' posts.slug %}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit">send</button>
+        </form>
+    </div>
 
-{% endfor %}
+    <div class="comments">
+        {% for comment in comment %}
+            <div class="comment">
+                <strong>{{ comment.Author.username }}:</strong> {{ comment.Content }}
+            </div>
+        {% endfor %}
+    </div>
+</div>
 
+{% endblock %}
+
+{% block javascript %}
+<script>
+    document.getElementById('add-comment-button').addEventListener('click', function() {
+        var commentFormContainer = document.getElementById('comment-form-container');
+        if (commentFormContainer.style.display === 'none') {
+            commentFormContainer.style.display = 'block';
+        } else {
+            commentFormContainer.style.display = 'none';
+        }
+    });
+</script>
 {% endblock %}

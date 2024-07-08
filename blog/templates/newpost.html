@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>posts</h1>
+<h5> add a post </h5>
 
-<form action="{% url 'post'%}" method="post" >
+<form action="{% url 'new-post'%}" method="post" >
     {% csrf_token %}
     {{ form }}
     <button type="submit">post</button>

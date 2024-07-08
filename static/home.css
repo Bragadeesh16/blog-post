@@ -1,0 +1,50 @@
+.posts-container {
+    margin: 20px auto;
+    max-width: 800px;
+    width: 90%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.post {
+    margin-bottom: 5px;
+    padding: 15px;
+}
+
+.post h5 {
+    margin: 0;
+    font-size: 1.5em;
+    color: #333;
+}
+
+.post p {
+    font-size: 1em;
+    color: #666;
+}
+
+a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.new-post-link {
+    margin-top: 20px;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+    position:absolute;
+    right: 20px;
+    bottom: 20px;
+}
+
+.new-post-link:hover {
+    background-color: #0056b3;
+}
