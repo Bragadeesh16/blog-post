@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils.text import slugify
 
 class CustomUser(AbstractUser):
     email = models.EmailField(max_length = 100, unique = True)
@@ -12,7 +13,7 @@ class CustomUser(AbstractUser):
     def save(self,*args,**kwargs):
         self.email = self.email.lower()
         return super().save(*args,**kwargs)
-    
+    @property
     def get_profile(self):
         return ProfileModel.objects.get_or_create(user=self)[0]
     
@@ -26,6 +27,7 @@ def save_username_when_user_is_created(sender,instance,created,*args,**kwargs):
 
 class ProfileModel(models.Model):
     user = models.OneToOneField(CustomUser,on_delete=models.CASCADE,unique=True,related_name='profile')
+    bio = models.TextField(null=True,blank=True)
     
 
 class Post(models.Model):
@@ -33,7 +35,15 @@ class Post(models.Model):
     Content = models.TextField(max_length=100)
     Author = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
     Published_Date = models.DateTimeField(auto_now=True)
-    slug = models.SlugField()
+    slug = models.SlugField( blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.Title)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.Title
 
 class Comment(models.Model):
     Post = models.ForeignKey(Post,on_delete=models.CASCADE)

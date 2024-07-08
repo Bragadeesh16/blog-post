@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1> detailed posts</h1>
+
+<h1>Title : {{posts.Title}}</h1>
+<a href="{% url 'profile' posts.Author.id %}"> author : {{ posts.Author }}</a>
+<p> content: {{ posts.Content }}</p>
+
+<form action="{% url 'post' posts.slug %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">send</button>
+</form>
+
+<h1>comments:</h1>
+
+{% for comment in comment %}
+
+    {{ comment.Content }} <br>
+
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>user profile</h1>
+
+{{ users.username }} <br>
+
+{% if users.id == request.user.id%}
+
+<br><button><a href="{% url 'update-profile' users.id %}">updateprofile</a> </button>
+
+{% endif %}
+
+
+<h1>posts:</h1>
+
+{% for posts in posts %}
+    <a href = "{% url 'post' posts.slug %}">
+        <h1> title : {{ posts.Title }}</h1>
+        <p> content : {{ posts.Content }}</p> <br>
+    </a>
+{% endfor %}
+
+{% endblock %}

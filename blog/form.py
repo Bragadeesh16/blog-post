@@ -24,3 +24,13 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['Content']
+
+class ProfileModelForm(forms.ModelForm):
+    class Meta:
+        model = ProfileModel
+        fields = ['bio']
+
+class CustomUserForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ['username']
