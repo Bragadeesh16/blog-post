@@ -17,13 +17,15 @@
         <header class="header">
             <h5 class="username">Blog Application</h5>
             <div class="icon-header-elements">
-
+                {% if user.is_authenticated %}
                 <a href="{% url 'home'%}">
                     <img src="{% static 'icons/home.png' %}" alt="" height="40px" width="40px">
                 </a>
+                
                 <a href="{% url 'update-profile' request.user.id %}">
                     <img src="{% static 'icons/setting.png' %}" alt="" height="40px" width="40px">
                 </a>
+                {% endif %}
             </div>
         </header>
 
