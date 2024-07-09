@@ -32,7 +32,7 @@ class ProfileModel(models.Model):
 
 class Post(models.Model):
     Title = models.CharField(max_length=100)
-    Content = models.TextField(max_length=100)
+    Content = models.TextField()
     Author = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
     Published_Date = models.DateTimeField(auto_now=True)
     slug = models.SlugField( blank=True)
