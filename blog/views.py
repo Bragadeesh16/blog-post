@@ -6,15 +6,18 @@ from django.utils.translation import gettext_lazy as _
 from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 
 
-@login_required(login_url='login')
+
 def home(request):
-    posts = Post.objects.all().order_by('Published_Date')
-    print(posts)
+    p = Paginator(Post.objects.all().order_by('Published_Date'),5)
+    page = request.GET.get('page')
+    post = p.get_page(page)
     context = {
-        'posts':posts
+        'posts':post
+        
     }
     return render(request,'home.html',context)
 
@@ -59,7 +62,7 @@ def signout(request):
     messages.success(request,"you have been logged out")
     return redirect("home")
 
-
+@login_required(login_url='login')
 def posting(request):
     form = PostFrom()
     if request.method == 'POST':
@@ -75,7 +78,7 @@ def posting(request):
 
     return render(request,'newpost.html',{'form':form})
 
-    
+@login_required(login_url='login') 
 def post_detail(request,slug):
 
     post = Post.objects.get(slug = slug)
@@ -100,6 +103,7 @@ def post_detail(request,slug):
     }
     return render(request,'post.html',context)
 
+@login_required(login_url='login')
 def profile(request,pk):
     user = CustomUser.objects.get(id = pk)
     user_profile = user.get_profile
@@ -138,4 +142,3 @@ def UpdateProfile(request,pk):
         'profile_form': profile_form,
     } 
     return render(request, 'updateprofile.html', context)
-

@@ -22,4 +22,19 @@
 <a href="{% url 'new-post' %}" class="new-post-link">new post</a>
 
 
+
+{% if posts.has_previous %}
+
+<a href="?page={{venues.previous_page_number }}">previous</a>
+
+{% endif %}
+
+Page {{ posts.number }} of {{ posts.paginator.num_pages }}
+
+{% if posts.has_next %}
+
+<a href="?page={{ posts.next_page_number }}">next</a>
+
+{% endif %}
+
 {% endblock %}
